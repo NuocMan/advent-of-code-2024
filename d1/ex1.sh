@@ -1,12 +1,10 @@
 #! /usr/bin/env bash
 
-if [[ $# != 1 || ! -f $1 ]] ; then
-  exit 1
-fi
+export AOC_DAY=1
+source ../lib/utils.sh
+set_LINE_ARRAY
 
 declare -a LIST1 LIST2
-
-readarray -t LINE_ARRAY < $1
 
 for l in "${LINE_ARRAY[@]}"; do
   vals=( $l )
