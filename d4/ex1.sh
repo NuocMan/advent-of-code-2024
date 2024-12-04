@@ -18,7 +18,9 @@ function get_cross_word() {
       (( y_dir == -1 && y < 3 )) && continue
       (( y_dir == 1 && y + 3 > ${#LINE_ARRAY[@]} - 1 )) && continue
       
-      echo ${LINE_ARRAY[$y]:$x:1}${LINE_ARRAY[$(( y + y_dir ))]:$(( x + x_dir )):1}${LINE_ARRAY[$(( y + y_dir * 2 ))]:$(( x + x_dir * 2 )):1}${LINE_ARRAY[$(( y + y_dir * 3 ))]:$(( x + x_dir * 3 )):1}
+      local word=${LINE_ARRAY[$y]:$x:1}${LINE_ARRAY[$(( y + y_dir ))]:$(( x + x_dir )):1}${LINE_ARRAY[$(( y + y_dir * 2 ))]:$(( x + x_dir * 2 )):1}${LINE_ARRAY[$(( y + y_dir * 3 ))]:$(( x + x_dir * 3 )):1}
+
+      [[ $word == "XMAS" ]] && (( ++RES ))
     done
   done
 }
@@ -28,9 +30,7 @@ LEN=${#LINE_ARRAY[0]}
 X_INDEXES=( $(seq 0 $(( LEN - 1 ))) )
 for j in ${!LINE_ARRAY[@]}; do
   for i in ${X_INDEXES[@]}; do
-    for word in $(get_cross_word $i $j); do
-      [[ $word == "XMAS" ]] && (( ++RES ))
-    done
+    get_cross_word $i $j
   done
 done
 
