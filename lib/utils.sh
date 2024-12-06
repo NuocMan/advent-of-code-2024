@@ -28,7 +28,11 @@ function get_input_file() {
 function set_LINE_ARRAY() {
   local INPUT
 
-  INPUT=$(get_input_file)
+  if [[ -p /dev/stdin ]]; then
+    INPUT=$(</dev/stdin)
+  else
+    INPUT=$(get_input_file)
+  fi
   [[ $? != 0 ]] && exit 1
   readarray -t LINE_ARRAY <<<$INPUT
 }
